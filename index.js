@@ -7,20 +7,20 @@ const websites = require('./websites');
 
 const app = express();
 const server = require('http').Server(app);
-// const io = require('socket.io')();
+const io = require('socket.io')(server);
 const port = 9090;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// io.on('connection', (client) => {
-// 	client.on('subscribeToTimer', (interval) => {
-// 		console.log('client is subscribing with interval ', interval);
-// 		setInterval(() => {
-// 			client.emit('timer', new Date());
-// 		}, interval);
-// 	});
-// });
+io.on('connection', (client) => {
+	client.on('subscribeToTimer', (interval) => {
+		console.log('client is subscribing with interval ', interval);
+		setInterval(() => {
+			client.emit('timer', new Date().toString());
+		}, interval);
+	});
+});
 
 app.get('/get-items', (req, res) => {
 	res.json(items);
@@ -48,7 +48,7 @@ app.post('/checkout', (req, res) => {
 	res.json(response);
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`))
+// app.listen(port, () => console.log(`Server running on port ${port}`))
 
-// io.listen(port);
-// console.log(`socket is listening ${port}!`);
+io.listen(port);
+console.log(`socket is listening ${port}!`);
