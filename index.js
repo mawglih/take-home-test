@@ -9,6 +9,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const port = 9090;
+const transporter = require('./Mailer/index');
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,6 +50,31 @@ app.post('/checkout', (req, res) => {
 	res.json(response);
 });
 
+app.post('/send', (req, res, next) => {
+  var name = req.body.name
+  var email = req.body.email
+  var message = req.body.message
+  var content = `name: ${name} \n email: ${email} \n message: ${content} `
+
+  var mail = {
+    from: name,
+    to: 'mawglih@gmail.com',  //Change to email address that you want to receive messages on
+    subject: 'New Message from Contact Form',
+    text: content
+  }
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: 'fail'
+      })
+    } else {
+      res.json({
+        msg: 'success'
+      })
+    }
+  })
+});
 // app.listen(port, () => console.log(`Server running on port ${port}`))
 
 io.listen(port);
