@@ -8,8 +8,8 @@ const websites = require('./websites');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const port = 9090;
-const transporter = require('./Mailer/index');
+const port = 8080;
+const transporter = require('./Mailer/transport');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -58,7 +58,7 @@ app.post('/send', (req, res, next) => {
 
   var mail = {
     from: name,
-    to: 'mawglih@gmail.com',  //Change to email address that you want to receive messages on
+    to: 'mawglih@gmail.com', 
     subject: 'New Message from Contact Form',
     text: content
   }
@@ -76,6 +76,7 @@ app.post('/send', (req, res, next) => {
   })
 });
 // app.listen(port, () => console.log(`Server running on port ${port}`))
+// console.log(`server is ready on port ${port}`)
 
 io.listen(port);
 console.log(`socket is listening ${port}!`);

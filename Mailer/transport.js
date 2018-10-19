@@ -1,12 +1,19 @@
-import nodemailer from 'nodemailer';
-import config from '../config';
+const nodemailer = require('nodemailer');
+const config = require('../config/config-mail');
 
 const transport = {
-  host: 'smtp.gmail.com',
+  pool: true,
+  host: 'mail.oleg-dev.com',
+  secure: true,
   auth: {
     user: config.USER,
     pass: config.PASS,
   },
+  port: 465,
+  tls: {
+    rejectUnauthorized: false
+  },
+  crossdomain:true
 };
 
 const transporter = nodemailer.createTransport(transport);
@@ -17,5 +24,3 @@ transporter.verify((error, success) => {
     console.log('Server is ready to take messages');
   }
 });
-
-export default transporter;
