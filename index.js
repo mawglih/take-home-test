@@ -15,14 +15,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-io.on('connection', (client) => {
-	client.on('subscribeToTimer', (interval) => {
-		console.log('client is subscribing with interval ', interval);
-		setInterval(() => {
-			client.emit('timer', new Date().toString());
-		}, interval);
-	});
-});
 
 app.get('/get-items', (req, res) => {
 	res.json(items);
@@ -55,28 +47,8 @@ app.post('/send', (req, res, next) => {
   var email = req.body.email
   var message = req.body.message
   var content = `name: ${name} \n email: ${email} \n message: ${content} `
-
-  var mail = {
-    from: name,
-    to: 'mawglih@gmail.com', 
-    subject: 'New Message from Contact Form',
-    text: content
-  }
-
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        msg: 'fail'
-      })
-    } else {
-      res.json({
-        msg: 'success'
-      })
-    }
-  })
 });
-// app.listen(port, () => console.log(`Server running on port ${port}`))
-// console.log(`server is ready on port ${port}`)
 
-io.listen(port);
-console.log(`socket is listening ${port}!`);
+  
+app.listen(port, () => console.log(`Server running on port ${port}`))
+console.log(`server is ready on port ${port}`);
