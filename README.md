@@ -8,22 +8,24 @@ The “home” page is the product listing. The product detail page URL should h
 
 ## API
 
-The coding challenge comes with an API to help you build your app. It is written in Node.js. To get it up and running, you need to install the latest version of Node (at the time of writing, tested with v9.3.0).
-
+The coding challenge comes with an API to help you build your app. It is written in Node.js. To get it up and running, you need to install the latest version of Node (at the time of writing, tested with v10). 
+You can clone it with git --bare clone command and create your own repo.
+You can modify routes and add additional items to items.js file, or use mongo db to create items in Mongo Cloud instead.
+You can use AWS to store images and access them in there.
 Once you have Node installed, run the following commands in your terminal:
 
 ```bash
 npm install
-node index.js
+npm start
 ```
 
 You should see a message like this:
 
 ```
-Shopping Cart API app listening on port 3001!
+Server running on port 8080!
 ```
 
-You can now access the API from this URL: `http://locahost:3001/`. The API includes two routes:
+You can now access the API from this URL: `http://locahost:8080/`. The API includes two routes:
 
 ### `/get-items`
 
@@ -98,6 +100,7 @@ If the request is successful, you will receive a `200` response back. If not, it
 	"error": "Invalid request."
 }
 ```
+Create React App. Recommended to use Redux, React Router and Redux Sagas. Use ECMA-2015 or higher. DO not use older version of JS with vars, we expect const and let and arrow functions.
 
 ## Criteria
 ## Level 1 - you are Mid level developer
