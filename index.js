@@ -7,9 +7,7 @@ const websites = require('./websites');
 
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
 const port = 8080;
-const transporter = require('./Mailer/transport');
 
 app.use(cors());
 app.use(bodyParser.json());
